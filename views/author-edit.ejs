@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/metadata', { title: (locals.id ? 'Edit' : 'New' ) +' Article' }); %>
+</head>
+
+<body class="bg-gray-700 text-gray-200">
+  <%- include('./partials/header'); %>
+
+  <div class="container mx-auto my-8 px-4">
+
+    <div class="mb-8">
+      <h1 class="font-bold text-3-5xl text-gray-900 border-b-2">
+        <%= locals.id ? 'Edit' : 'New draft' %> article
+      </h1>
+      <p class="mb-0">
+        <% if (locals.created) { %>
+          <span class="text-gray-500">Created <%= new Date(created + 'Z').toLocaleString('en-GB', { timeZone: 'Europe/London',hour12: true }) %></span>
+        <% } %>
+        <% if (locals.modified) { %>
+          <span class="text-blue-500">| Modified <%= new Date(modified + 'Z').toLocaleString('en-GB', { timeZone: 'Europe/London',hour12: true }) %></span>
+        <% } %>
+        <% if (locals.published) { %>
+          <span class="text-green-500">| Published <%= new Date(published + 'Z').toLocaleString('en-GB', { timeZone: 'Europe/London',hour12: true }) %></span>
+        <% } %>
+      </p>
+    </div>
+    
+    
+    
+    
+
+    <div>
+      <form method="post" action="/author/<%= locals.id ? 'edit/'+id : 'new' %>">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-200">Article title</label>
+          <input type="text" class="form-input block w-full mt-1 text-gray-800" id="title" name="title" value="<%= locals.title %>" required>
+        </div>
+        <div class="mb-4">
+          <label for="subtitle" class="block text-sm font-medium text-gray-200">Article subtitle</label>
+          <input type="text" class="form-input block w-full mt-1 text-gray-800" id="subtitle" name="subtitle" value="<%= locals.subtitle %>" required>
+        </div>
+        <div class="mb-4">
+          <label for="body" class="block text-sm font-medium text-gray-200">Article text</label>
+          <textarea class="form-textarea mt-1 block w-full text-gray-800" rows="5" id="body" name="body" required><%= locals.body %></textarea>
+        </div>
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-800">Submit</button>
+        <a class="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-800 float-right" href="/author" role="button">Back</a>
+      </form>
+    </div>
+
+  </div>
+</body>
+
+</html>

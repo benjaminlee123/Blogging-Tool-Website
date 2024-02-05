@@ -1,0 +1,31 @@
+{
+  "name": "cm2040_mid-term_benjamin-lee",
+  "version": "1.0.0",
+  "description": "Mid-term assignment - Blogging tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-db": "type db_schema.sql | sqlite3 database.db",
+    "clean-db": "del database.db",
+    "start": "node index.js",
+    "build:css": "tailwindcss -i public/styles.css -o public/output.css"
+    
+  },
+  "author": "Simon Katan; Benjamin Lee",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.2",
+    "tailwindcss": "^3.3.3"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "cross-var": "^1.0.0"
+  }
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/metadata', { title: 'Home' }); %>
+</head>
+
+<body class="bg-gray-700 text-gray-200">
+  <%- include('./partials/header'); %>
+
+    <div class="container mx-auto my-4 px-4">
+
+      <h1 class="text-<%= color %> border-b border-<%= color %> text-4xl font-bold">
+        <%= article.title %>
+      </h1>
+      <h4 class="text-<%= color %> text-3xl font-bold">
+        <%= article.subtitle %>
+          <button type="button"
+            class="float-right inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 <%= article.likes ? '' : 'opacity-50' %>"
+            onclick="like()">Like (<%= article.likes %>)</button>
+          </button>
+      </h4>
+      <span class="text-xs font-light">
+        Published: <%= new Date(article.published + 'Z' ).toLocaleString('en-GB', { timeZone: 'Europe/London' ,hour12:
+          true}) %>
+      </span>
+
+
+      <p class="mt-5 mb-5 text-white">
+        <%= article.body %>
+      </p>
+
+      <div class="mb-3">
+        <label for="comment" class="block text-sm font-medium text-white">Leave your comment on this article</label>
+        <button type="button"
+          class="mb-1 float-right inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700"
+          onclick="comment()">Comment</button>
+
+        <textarea class="mt-1 block w-full py-2 px-3 border border-<%= color %> bg-gray-700 text-white rounded-md"
+          id="comment" name="comment" rows="3"></textarea>
+      </div>
+
+      <% comments.forEach(function(comment) { %>
+        <div class="bg-gray-700 border border-gray-600 mb-3 rounded-md">
+          <div class="p-2">
+            <%= comment.body %>
+              <p class="text-sm font-light">
+                Commented: <%= new Date(comment.created + 'Z' ).toLocaleString('en-GB', { timeZone: 'Europe/London'
+                  ,hour12: true}) %>
+              </p>
+          </div>
+        </div>
+        <% }); %>
+
+          <div class="translate-middle">
+            <a class="float-right inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700"
+              href="/" role="button">Return</a>
+          </div>
+    </div>
+
+    <script>
+      function like() {
+        fetch('/like/<%= article.id %>', { method: 'POST' })
+          .then(function (res) { return res.json(); }) // Parse the JSON from the response
+          .then(function (data) {
+            if (data.alreadyLiked) {
+              // If the article has already been liked, alert the user
+              alert("You've already liked this article!");
+            } else {
+              // If not, reload the page to update the like count
+              location.reload();
+            }
+          });
+      }
+
+
+      function comment() {
+        const value = document.querySelector('#comment').value;
+
+        if (value) {
+          const formData = new URLSearchParams({ comment: value });
+          fetch('/comment/<%= article.id %>', {
+            body: formData,
+            method: 'post'
+          }).then(function (res) { location.reload(); });
+        }
+      }
+    </script>
+</body>
+
+</html>

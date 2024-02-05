@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/metadata', { title: 'Read Article' }); %>
+</head>
+
+<body class="bg-gray-700 text-gray-200">
+  <%- include('./partials/header', { goto: 'author' }); %>
+
+  <div class="container mx-auto my-4 px-4 grid grid-cols-3 gap-4">
+    <% articles.forEach(function(article, index) { %>
+
+        <a class="bg-gray-700 hover:bg-gray-800 transition-colors duration-200 text-decoration-none mb-3 text-<%= getColor(article.id) %>" href="/reader/<%= article.id %>">
+          <div class="px-4 py-2 border-b border-<%= getColor(article.id) %>">Article <%= index + 1 %></div>
+          <div class="p-4 text-<%= getColor(article.id) %>">
+            <h5 class="font-bold">
+              <%= article.title %>
+            </h5>
+            <p class="text-sm">
+              <%= article.subtitle %>
+            </p>
+          </div>
+          <div class="px-4 py-2 border-t border-<%= getColor(article.id) %>">
+            <span class="text-xs font-light">
+              Published: <%= new Date(article.published + 'Z').toLocaleString('en-GB', { timeZone: 'Europe/London',hour12: true}) %>
+            </span>
+          </div>
+        </a>
+
+    <% }); %>
+  </div>
+
+</body>
+
+</html>

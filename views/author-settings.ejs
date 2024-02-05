@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/metadata', { title: 'Blog Settings' }); %>
+</head>
+
+<body class="bg-gray-700 text-gray-200">
+  <%- include('./partials/header'); %>
+
+  <div class="container mx-auto my-2 px-4">
+
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-white border-b-2 pb-2">
+        Blog Settings
+      </h1>
+      <span class="font-light text-gray-400">
+        Manage your blog settings here.
+      </span>
+    </div>
+    
+
+    <div>
+      <form method="post" action="/author/settings">
+        <div class="mb-3">
+          <label for="title" class="block text-sm font-medium title-color">Blog title</label>
+          <input type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 text-white rounded-md" id="title" name="title" value="<%= title %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="subtitle" class="block text-sm font-medium text-white">Blog subtitle</label>
+          <input type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 text-white rounded-md" id="subtitle" name="subtitle" value="<%= subtitle %>" required>
+        </div>
+        <div class="mb-4">
+          <label for="author" class="block text-sm font-medium text-white">Author name</label>
+          <input type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 text-white rounded-md" id="author" name="author" value="<%= author %>" required>
+        </div>
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700">Submit</button>
+        <a class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 float-right" href="/author" role="button">Back</a>
+      </form>
+    </div>
+
+  </div>
+</body>
+
+</html>
